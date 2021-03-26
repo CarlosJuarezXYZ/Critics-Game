@@ -1,0 +1,24 @@
+<div class='form-body'>
+  <%= form_with model: [@game,@platform], local: true do |form| %>
+    <% if @game.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          Something went wrong:
+        </h2>
+        <ul>
+          <% @game.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <p class='form-p'>
+      <%= form.label :platform_id,'Platform', class: 'form-text' %></br>
+      <%= form.collection_select :platform_id, Platform.all, :id, :name, include_blank: 'Please select'%>
+    </p>
+    <div class="form-button form-p">
+      <%= form.submit class: 'button button-category' %>
+      <%= link_to 'Cancel', :back, class: 'button' %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CriticsBeta</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  
+  <body>
+    <header>
+      <%= link_to games_path do %>
+        <h1><%= image_tag "image_39.png" %></h1>
+      <% end %>
+      <div class="current_session">
+        <% if current_user %>
+          <span>Logged as, <%=link_to current_user.username, edit_user_registration_path%></span>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'button button-category button-session' %>
+        <% else %>
+          <%= link_to "Signin", new_user_session_path, class: 'button button-category button-session' %>
+        <% end %>
+      </div>
+    </header>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    
+    <%= yield %>
+    <footer>
+    <div><%= image_tag('line.png') %></div><br/>
+    <div><%= image_tag('footer.png') %></div>
+  </footer>
+  </body>
+  
+</html>

@@ -1,0 +1,2 @@
+module GamecompanyHelper
+end

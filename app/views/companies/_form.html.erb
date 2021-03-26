@@ -1,0 +1,40 @@
+<div class='form-body'>
+  <%= form_with model: @company, local: true do |form| %>
+    <% if @company.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          Something went wrong:
+        </h2>
+        <ul>
+          <% @company.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <p class='form-p'>
+        <%= form.label :name, class: 'form-text' %></br>
+        <%= form.text_field :name, class: 'form-field' %>
+      </p>
+      <p class='form-p'>
+        <%= form.label :description, class: 'form-text' %></br>
+        <%= form.text_area :description, class: 'form-field comment_input' %>
+      </p>
+      <p class='form-p'>
+        <%= form.label :start_date, class: 'form-text' %></br>
+        <%= form.date_field :start_date, class: 'form-field', placeholder: "mm/dd/yyyy" %>
+      </p>
+      <p class='form-p'>
+        <%= form.label :country, class: 'form-text' %></br>
+        <%= form.text_field :country, class: 'form-field' %>
+      </p>
+      
+      <div class = "form-button form-p">
+      <%= form.submit class: "button button-category"%>
+          <%= link_to "Cancel", :back, class: 'button' %>
+    </div>
+    </div>
+  <% end %>
+</div>

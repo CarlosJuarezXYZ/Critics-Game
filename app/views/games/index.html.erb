@@ -1,0 +1,62 @@
+<div class="section_title">
+  <h1 class="title">Games</h1>
+  <div class="section_title__buttons">
+    <% if current_user %>
+        <%= link_to "New Company", new_company_path, class: 'button' %>
+        <%= link_to "New Game", new_game_path, class: 'button' %>
+    <% end %>
+  </div>
+</div>
+<ul class = game_cards>
+  <% @games.each do |game| %>
+  <li class = game_card>
+    <%= link_to game_path(game) do %>
+      <div class="game_card__img">
+        <%= image_tag(game.cover) if game.cover.attached? %>
+      </div>
+      <div class="game_card__content">
+        <div class="game_card__content-header">
+          <div class="game_card__content-header-title">
+            <h2 class="game_card__title"><%= game.name %></h2>
+            <p class="game_card__year"><%= game.release_date.year %></p>
+          </div>
+          <span class="game_card__content-header-rating"><%= game.rating %></span>
+        </div>
+
+        <div class="game-card__body-tags">
+          <span class="game-card__body-tags--title">Genres: </span>
+          <% game.genres.each do |genre| %>
+            <span class="game-card__body-tag"><%= genre[:name] %></span>
+            <% end %>
+          
+        </div>
+        <div class="game-card__body-tags">
+          <span class="game-card__body-tags--title">Platforms: </span>
+            <% game.platforms.each do |platform| %>
+              <span class="game-card__body-tag"><%= platform[:name] %></span>
+              <% end %>
+            
+        </div>
+        <div class="game-card__body-tags">
+          <span class="game-card__body-tags--title">Companies: </span>
+            <% game.involved_companies.each do |involved_company| %>
+              <span class="game-card__body-tag"><%= involved_company.company[:name] %></span>
+            <% end %>
+        </div>
+        <p class="game-card__summary">
+        <%= game.summary %>
+        </p>
+        <div class="game-card__footer">
+          <p class="game-card__critics"><%= game.critics.size %> critics</p>
+          <% if current_user %>  
+            <div class='card-foter'>
+              <span><%= link_to edit_game_path(game) do%><%= image_tag('update.png') %><% end %></span>
+              <span><%= link_to game_path(game), method: :delete, data: { confirm: "Are you sure you want to delete the game?" } do %> <%= image_tag('delete.png')%><% end %> </span>
+            </div>
+          <% end %>
+        </div>
+      </div> 
+    <% end %>
+  </li>
+  <% end %>
+</ul>

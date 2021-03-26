@@ -1,0 +1,61 @@
+<div class='form-body'>
+  <%= form_with model: @game, local: true do |form| %>
+    <% if @game.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          Something went wrong:
+        </h2>
+        <ul>
+          <% @game.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <p class='form-p'>
+        <%= form.label :name, class: 'form-text' %></br>
+        <%= form.text_field :name, class: 'form-field' %>
+      </p>
+      <p class='form-p'>
+        <%= form.label :summary, class: 'form-text' %></br>
+        <%= form.text_area :summary, class: 'form-field comment_input' %>
+      </p>
+      <p class='form-p'>
+        <%= form.label :release_date, class: 'form-text' %></br>
+        <%= form.date_field :release_date, class: 'form-field', placeholder: "mm/dd/yyyy" %>
+      </p>
+
+      <!--- Category -->
+
+      <p class='form-p'>
+        <%= form.label :category, class: 'form-text' %></br>
+        <span class="form-field"><%= select_tag(:category, options_for_select([['expansion', 1], ['main_game', 0]])) %></span> 
+      </p>
+      
+      <p class='form-p'>
+        <%= form.label :rating, class: 'form-text' %></br>
+        <%= form.text_field :rating, class: 'form-field' %>
+      </p>
+      
+      <!--- Parent -->
+      <p class='form-p'>
+        <%= form.label :parent_id, class: 'form-text' %></br>
+        <span class="form-field"><%= form.collection_select :parent_id, Game.all, :id, :name, include_blank: "Please Select" %></span>
+      </p>
+      <!--- Cover -->
+      <p class='form-p'>
+        <%= form.label :cover, class: 'form-text' %></br>
+        <%= form.file_field :cover, class: 'form-field' %>
+      </p></br>
+      <p class='form-p'>
+        <%= image_tag(@game.cover, class: 'form-cover') if @game.cover.attached? %>
+      </p>
+      <div class = "form-button form-p">
+        <%= form.submit class: "button button-category"%>
+            <%= link_to "Cancel", :back, class: 'button' %>
+      </div>
+    </div>
+  <% end %>
+</div>
